@@ -1,6 +1,10 @@
 # Sistema de Gestión de Productos y Categorías
 
-Este proyecto es una aplicación web diseñada para gestionar tanto productos como categorías asociadas. Permite a los usuarios realizar operaciones CRUD (Crear, Leer, Actualizar y Eliminar) tanto sobre productos individuales como sobre las categorías que los agrupan.
+Este proyecto es una aplicación web integral diseñada para la gestión eficiente de una concesionaria de autos. La plataforma permite a los usuarios llevar a cabo diversas operaciones relacionadas con la administración de vehículos, incluyendo la creación, lectura, actualización y eliminación (CRUD) de autos, marcas, modelos, y clientes. Además, ofrece funcionalidades para gestionar categorías, comentarios de los usuarios y la relación con proveedores. 
+
+El sistema está construido para diferenciar entre usuarios con diferentes roles, como staff y clientes, proporcionando niveles de acceso adecuados según las necesidades de la concesionaria. Los usuarios con rol de staff pueden administrar los vehículos y acceder a funcionalidades avanzadas, mientras que los clientes pueden interactuar con la plataforma, dejando comentarios y visualizando la información de los autos disponibles.
+
+Esta solución busca mejorar la eficiencia operativa de la concesionaria, facilitar la interacción con los clientes y asegurar un manejo organizado de toda la información relevante para el negocio.
 
 
 
@@ -97,3 +101,6 @@ Este proyecto es una aplicación web diseñada para gestionar tanto productos co
 ## Autor ✒️
 
 - Franco Emanuel Benitez - [@emanuel079](https://github.com/emanuel079)
+- Cintia Gisele Rojo- [@cinrojo](https://github.com/cinrojo)
+- Lautaro Palacios - [@Lautaro-Palacios](https://github.com/Lautaro-Palacios)
+  
