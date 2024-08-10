@@ -1,0 +1,45 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Editar Empleado</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="user">Usuario</label>
+            {{ form.user }}
+            {% if form.user.errors %}
+            <div class="text-danger">
+                {{ form.user.errors }}
+            </div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="puesto">Puesto</label>
+            {{ form.puesto }}
+            {% if form.puesto.errors %}
+            <div class="text-danger">
+                {{ form.puesto.errors }}
+            </div>
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <label for="imagen">Imagen</label>
+            {{ form.imagen }}
+            {% if form.imagen.errors %}
+            <div class="text-danger">
+                {{ form.imagen.errors }}
+            </div>
+            {% endif %}
+            {% if empleado.imagen %}
+            <div class="mt-2">
+                <img src="{{ empleado.imagen.url }}" style="width: 150px; height: 150px;" alt="Imagen de {{ empleado.user.username }}">
+            </div>
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+        <a href="{% url 'empleados_list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

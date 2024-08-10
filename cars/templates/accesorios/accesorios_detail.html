@@ -1,0 +1,29 @@
+{% extends 'home/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Detalle del Accesorio</h2>
+    <div class="card">
+        {% if accesorio.imagen %}
+            <img src="{{ accesorio.imagen.url }}" class="card-img-top" alt="Imagen de {{ accesorio.nombre }}">
+        {% else %}
+            <img src="{% static 'images/default-image.png' %}" class="card-img-top" alt="Imagen por defecto">
+        {% endif %}
+        <div class="card mt-4">
+            <h5 class="card-title">{{ accesorio.nombre }}</h5>
+            <p class="card-text">{{ accesorio.descripcion }}</p>
+            <p class="card-text"><strong>Precio:</strong> {{ accesorio.precio }}</p>
+            
+            <a href="{% url 'cita_create'  %}" class="btn btn-success">Contactanos</a>
+
+            {% if user.is_staff %}
+            <a href="{% url 'accesorios_update' accesorio.pk %}" class="btn btn-secondary">Editar</a>
+            <a href="{% url 'accesorios_delete' accesorio.pk %}" class="btn btn-danger">Eliminar</a>
+            {% endif %}
+
+            <a href="{% url 'accesorios_list' %}" class="btn btn-primary">Volver a la Lista</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

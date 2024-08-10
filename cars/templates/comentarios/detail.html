@@ -1,0 +1,26 @@
+{% extends "home/base.html" %}
+
+{% block content %}
+<div class="container mt-3">
+    <h2>Detalles del Comentario</h2>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Auto: {{ comentario.auto.marca }} {{ comentario.auto.modelo }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Cliente: {{ comentario.cliente.user.username }}</h6>
+            <p class="card-text"><strong>Comentario:</strong> {{ comentario.comentario }}</p>
+            <p class="card-text"><strong>Fecha:</strong> {{ comentario.fecha|date:"d M Y H:i" }}</p>
+            
+            {% if cliente.user.is_authenticated %}
+                <a href="{% url 'comentario_update' comentario.pk %}" class="btn btn-success">Editar</a>
+            {% endif %}
+            
+                <form action="{% url 'comentario_delete' comentario.pk %}" method="post" style="display:inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">Eliminar</button>
+                </form>
+            
+            <a href="{% url 'comentarios_por_auto' comentario.auto.pk %}" class="btn btn-secondary">Volver a la Lista</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

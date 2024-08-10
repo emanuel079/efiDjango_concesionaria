@@ -1,0 +1,51 @@
+{% extends 'home/base.html' %}
+
+{% block title %}Lista de Proveedores{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Proveedores</h2>
+    {% if user.is_staff %}
+    <a href="{% url 'proveedores_create' %}" class="btn btn-success mb-3">Crear Nuevo Proveedor</a>
+    {% endif %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nombre</th>
+                <th>Teléfono</th>
+                <th>Dirección</th>
+                <th>Autos</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for proveedor in proveedores %}
+            <tr>
+                <td>{{ proveedor.nombre }}</td>
+                <td>{{ proveedor.telefono }}</td>
+                <td>{{ proveedor.direccion }}</td>
+                <td>
+                    {% for auto in proveedor.autos.all %}
+                        {{ auto.modelo.marca.nombre }} {{ auto.modelo.nombre }}<br>
+                    {% endfor %}
+                </td>
+                <td>
+                    <a href="{% url 'proveedores_detail' proveedor.id %}" class="btn btn-info btn-sm">Ver</a>
+                    {% if user.is_staff %}
+                    <a href="{% url 'proveedores_update' proveedor.id %}" class="btn btn-warning btn-sm">Editar</a>
+                    <form action="{% url 'proveedores_delete' proveedor.id %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de eliminar este proveedor?');">Eliminar</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" class="text-center">No hay proveedores registrados.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

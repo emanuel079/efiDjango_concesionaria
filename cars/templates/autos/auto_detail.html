@@ -1,0 +1,41 @@
+{% extends 'home/base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Detalles del Auto</h2>
+    <p><strong>Nombre:</strong> {{ auto.modelo.nombre }}</p>
+    <p><strong>Marca:</strong> {{ auto.modelo.marca.nombre }}</p>
+    <p><strong>Precio en USD:</strong> {{ auto.precio }}</p>
+    <p><strong>Combustible:</strong> {{ auto.combustible }}</p>
+    <p><strong>Descripción:</strong> {{ auto.descripcion }}</p>
+    {% if auto.imagen %}
+        <img src="{{ auto.imagen.url }}" alt="Imagen de {{ auto.modelo.nombre }}" class="img-fluid">
+    {% else %}
+        <p>No hay imagen disponible</p>
+    {% endif %}
+    <div class="mt-3">
+        <a href="{% url 'cita_create' %}" class="btn btn-secondary">Consultar Planes</a>
+        {% if user.is_staff %}
+        <a href="{% url 'auto_update' auto.pk %}" class="btn btn-secondary">Editar</a>
+        <a href="{% url 'auto_delete' auto.pk %}" class="btn btn-danger">Eliminar</a>
+        {% endif %}
+        <a href="{% url 'comentario_create_auto' auto.pk %}" class="btn btn-primary btn-sm">Crear Comentarios</a>
+    </div>
+    
+    <!-- Sección de Comentarios -->
+    <div class="mt-4">
+        <h3>Comentarios</h3>
+        {% if auto.comentario_set.exists %}
+            <ul class="list-group">
+                {% for comentario in auto.comentario_set.all %}
+                    <li class="list-group-item">
+                        <strong>{{ comentario.cliente.user.username }}</strong>: {{ comentario.comentario }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p class="text-muted">No hay comentarios para este auto.</p>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

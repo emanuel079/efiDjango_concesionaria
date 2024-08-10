@@ -1,0 +1,6 @@
+Archivos Estáticos (CSS, JS, imágenes que no cambian):
+Coloca estos archivos en el directorio static. 
+Puedes tener subdirectorios dentro de static para organizar mejor tus archivos.
+
+Uso en Plantillas(de medios):
+<img src="{% static 'images/bmw.jpg' %}" alt="BMW">
