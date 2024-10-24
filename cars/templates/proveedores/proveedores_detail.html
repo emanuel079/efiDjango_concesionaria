@@ -1,0 +1,42 @@
+{% extends 'home/base.html' %}
+
+{% block title %}Detalle del Proveedor{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Detalle del Proveedor</h2>
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ proveedor.nombre }}</td>
+            </tr>
+            <tr>
+                <th>Teléfono</th>
+                <td>{{ proveedor.telefono }}</td>
+            </tr>
+            <tr>
+                <th>Dirección</th>
+                <td>{{ proveedor.direccion }}</td>
+            </tr>
+            <tr>
+                <th>Autos Proveídos</th>
+                <td>
+                    <ul>
+                        {% for auto in proveedor.autos.all %}
+                        <li>{{ auto.modelo.marca.nombre }} {{ auto.modelo.nombre }}</li>
+                        {% empty %}
+                        <li>No hay autos asociados.</li>
+                        {% endfor %}
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    {% if user.is_staff %}
+    <a href="{% url 'proveedores_update' proveedor.pk %}" class="btn btn-warning">Editar</a>
+    <a href="{% url 'proveedores_delete' proveedor.pk %}" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar este proveedor?');">Eliminar</a>
+    {% endif %} 
+    <a href="{% url 'proveedores_list' %}" class="btn btn-secondary">Volver a la lista</a>
+</div>
+{% endblock %}

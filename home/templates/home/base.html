@@ -1,0 +1,142 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Mi Sitio{% endblock %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <style>
+        body {
+            background-color: #484949;
+            color: rgb(228, 199, 161);
+        }
+        .card {
+            background-color: #484949;
+        }
+        .info-bar {
+            background-color: #333;
+            color: #fff;
+            padding: 10px 0;
+            margin-bottom: 20px;
+        }
+        .info-bar h5 {
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+        .info-bar .dolar {
+            display: inline-block;
+            margin: 0 15px;
+        }
+        .footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px 0;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        .footer-icons a {
+            color: #fff;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        .footer-icons a:hover {
+            color: #ddd;
+        }
+        .world-clock {
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .world-clock ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Mi Sitio</a>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="{% url 'index' %}">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'auto_list' %}">Vehículos</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'cita_create' %}">Contactanos</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'accesorios_list' %}">Accesorios</a></li>
+                <li class="nav-item"></li><a href="{% url 'update_lang' %}" class="btn btn-primary" role="button">
+                    {% if profile.language == 'es'%} EN {% else %} ES {% endif %}
+                </a></li>
+                {% if user.is_staff %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'staff' %}">Staff</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'proveedores_list' %}">Proveedores</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'empleados_list' %}">Empleados</a></li>
+                {% endif %}
+            </ul>
+
+            <div>
+                {% if user.is_authenticated %}
+                   <li class="nav-item ms-auto d-flex align-items-center me-4"><a class="btn btn-danger" href="{% url 'logout' %}">Cerrar Sesión</a></li>
+                {% else %}
+                   <li class="nav-item ms-auto d-flex align-items-center me-4"><a class="btn btn-success" href="{% url 'login' %}">Iniciar Sesión</a></li>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <header class="info-bar">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 dolar">
+                    <h5>Cotización del Dólar: {{ usd_to_ars }} ARS</h5>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container content">
+        {% block content %}{% endblock %}
+    </div>
+
+    <footer class="footer">
+        <div class="container text-center">
+            <div class="footer-icons">
+                <a href="https://wa.me/1234567890" target="_blank" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                <a href="tel:+1234567890" aria-label="Teléfono"><i class="fas fa-phone"></i></a>
+                <a href="https://goo.gl/maps/example" target="_blank" aria-label="Dirección"><i class="fas fa-map-marker-alt"></i></a>
+            </div>
+            <p class="mt-2 mb-0">WhatsApp: <a href="https://wa.me/1234567890" target="_blank">+123 456 7890</a></p>
+            <p class="mb-0">Teléfono: <a href="tel:+1234567890">+123 456 7890</a></p>
+            <p class="mb-0">Dirección: Bv Roca, Rio Cuarto, Cordoba </p>
+
+            <!-- Añadir la hora mundial al footer -->
+            <div class="world-clock mt-3">
+                <h5>Hora Actual</h5>
+                <ul>
+                    {% for country, time in world_clock.items %}
+                        <li><strong>{{ country }}:</strong> {{ time }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts de Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script>
+        // Inicializar el carrusel
+        document.addEventListener('DOMContentLoaded', function() {
+            var myCarousel = document.querySelector('#inicioCarousel');
+            var carousel = new bootstrap.Carousel(myCarousel, {
+                interval: 1500,  // Cambia el intervalo a 1.5 segundos
+                ride: 'carousel'
+            });
+        });
+    </script>
+</body>
+</html>

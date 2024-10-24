@@ -1,0 +1,63 @@
+{% extends 'home/base.html' %}
+{% load static %}
+{% load i18n%}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h4 class="card-title text-center fw-bold" style="font-family: 'Arial', sans-serif; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);">
+                        {% trans "Bienvenido"  %} {% if user.is_authenticated %}
+                            {{ user.first_name }} {{ user.last_name }}
+                        {% endif %}
+                    </h4>
+                    <p class="card-text text-center" style="font-family: 'Arial', sans-serif; text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);">
+                        CONCESIONARIA AUTITO
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="inicioCarousel" class="carousel slide mt-4" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#inicioCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#inicioCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#inicioCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="{% static 'images/autos/camaro.jpg' %}" class="d-block w-100" alt="Imagen 1">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Bienvenido a Nuestra Concesionaria</h5>
+                <p>Descubre nuestra amplia gama de vehículos.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'images/autos/bmw.jpg' %}" class="d-block w-100" alt="Imagen 2">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Encuentra el Auto de tus Sueños</h5>
+                <p>Con las mejores ofertas del mercado.</p>
+            </div>
+        </div>
+        <div class="carousel-item">
+            <img src="{% static 'images/autos/toyo86.jpeg' %}" class="d-block w-100" alt="Imagen 3">
+            <div class="carousel-caption d-none d-md-block">
+                <h5>Servicio de Calidad</h5>
+                <p>Nos aseguramos de que tengas la mejor experiencia.</p>
+            </div>
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#inicioCarousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Anterior</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#inicioCarousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Siguiente</span>
+    </button>
+</div>
+{% endblock %}

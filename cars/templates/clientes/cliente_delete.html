@@ -1,0 +1,29 @@
+{% extends "home/base.html" %}
+
+{% block title %}Eliminar Cliente{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Eliminar Cliente</h2>
+    <div class="alert alert-danger" role="alert">
+        <strong>Advertencia:</strong> Estás a punto de eliminar a este cliente. Esta acción no se puede deshacer.
+    </div>
+    <div class="mb-3">
+        <label for="user" class="form-label">Usuario</label>
+        <p class="form-control-plaintext">{{ cliente.user.username }}</p>
+    </div>
+    <div class="mb-3">
+        <label for="telefono" class="form-label">Teléfono</label>
+        <p class="form-control-plaintext">{{ cliente.telefono }}</p>
+    </div>
+    <div class="mb-3">
+        <label for="direccion" class="form-label">Dirección</label>
+        <p class="form-control-plaintext">{{ cliente.direccion }}</p>
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-danger">Confirmar Eliminación</button>
+        <a href="{% url 'cliente_list' %}" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "home/base.html" %}
+
+{% block title %}Detalle del Cliente{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Detalle del Cliente</h2>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ cliente.user.username }}</h5>
+            <p class="card-text"><strong>Teléfono:</strong> {{ cliente.telefono }}</p>
+            <p class="card-text"><strong>Dirección:</strong> {{ cliente.direccion }}</p>
+            <a href="{% url 'cliente_update' cliente.id %}" class="btn btn-warning">Editar</a>
+            <form action="{% url 'cliente_delete' cliente.id %}" method="post" class="d-inline">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+            </form>
+            <a href="{% url 'cliente_list' %}" class="btn btn-secondary">Volver a la Lista</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

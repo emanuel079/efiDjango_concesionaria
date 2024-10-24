@@ -1,0 +1,22 @@
+{% extends "home/base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Eliminar Cita</h2>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ cita.servicio.nombre }}</h5>
+            <p class="card-text"><strong>Cliente:</strong> {{ cita.cliente.user.username }}</p>
+            <p class="card-text"><strong>Servicio:</strong> {{ cita.servicio.nombre }}</p>
+            <p class="card-text"><strong>Fecha:</strong> {{ cita.fecha }}</p>
+            <p class="card-text"><strong>Descripción:</strong> {{ cita.descripcion }}</p>
+            <p>¿Estás seguro de que deseas eliminar esta cita?</p>
+            <form method="post">
+                {% csrf_token %}
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+                <a href="{% url 'cita_list' %}" class="btn btn-secondary">Cancelar</a>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

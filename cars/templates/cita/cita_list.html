@@ -1,0 +1,53 @@
+{% extends "home/base.html" %}
+
+{% block title %}Lista de Citas{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Lista de Citas</h1>
+
+    {% if messages %}
+    <div class="alert-messages">
+        {% for message in messages %}
+            <div class="alert {{ message.tags }}">
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Cliente</th>
+                <th>Servicio</th>
+                <th>Fecha</th>
+                <th>Descripción</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cita in citas %}
+            <tr>
+                <td>{{ cita.id }}</td>
+                <td>{{ cita.cliente.user.username }}</td>
+                <td>{{ cita.servicio.nombre }}</td>
+                <td>{{ cita.fecha }}</td>
+                <td>{{ cita.descripcion }}</td>
+                <td>
+                    <a href="{% url 'cita_detail' cita.id %}" class="btn btn-info">Ver</a>
+                    {% if user.is_staff or cita.cliente.user == user %}
+                    <a href="{% url 'cita_update' cita.id %}" class="btn btn-warning">Editar</a>
+                    <form action="{% url 'cita_delete' cita.id %}" method="post" style="display: inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

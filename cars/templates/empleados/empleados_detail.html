@@ -1,0 +1,57 @@
+{% extends 'home/base.html' %}
+{% load static%}
+{% block title %}Detalle del Empleado{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Detalle del Empleado</h2>
+    <table class="table table-bordered">
+        <tbody>
+            <tr>
+                <th>Nombre de Usuario</th>
+                <td>{{ empleado.user.username }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ empleado.user.email }}</td>
+            </tr>
+            <tr>
+                <th>Nombre</th>
+                <td>{{ empleado.user.first_name }}</td>
+            </tr>
+            <tr>
+                <th>Apellido</th>
+                <td>{{ empleado.user.last_name }}</td>
+            </tr>
+            <tr>
+                <th>Puesto</th>
+                <td>{{ empleado.puesto }}</td>
+            </tr>
+            <tr>
+                <th>Es Usuario de Staff</th>
+                <td>{{ empleado.user.is_staff|yesno:"Sí,No" }}</td>
+            </tr>
+            <tr>
+                <th>Imagen</th>
+                <td>
+                    {% if empleado.imagen %}
+                        <img src="{{ empleado.imagen.url }}" style="width: 150px; height: 150px;" alt="Imagen de {{ empleado.user.username }}">
+                    {% else %}
+                        No hay imagen disponible.
+                    {% endif %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    {% if user.is_staff %}
+    <div class="d-flex justify-content-between">
+        <a href="{% url 'empleados_update' empleado.id %}" class="btn btn-warning">Editar</a>
+        <form action="{% url 'empleados_delete' empleado.id %}" method="post" style="display:inline;">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger" onclick="return confirm('¿Estás seguro de eliminar este empleado?');">Eliminar</button>
+        </form>
+    </div>
+    {% endif %}
+    <a href="{% url 'empleados_list' %}" class="btn btn-secondary mt-3">Volver a la lista</a>
+</div>
+{% endblock %}
